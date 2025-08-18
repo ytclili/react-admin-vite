@@ -1,4 +1,4 @@
-import { Layout, Menu, theme, Avatar, Space } from 'antd'
+import { Layout, Menu, theme, Avatar, Space, Breadcrumb } from 'antd'
 import { Outlet, Link, useMatches, useLocation } from 'react-router-dom'
 import {
 	SettingOutlined,
@@ -23,7 +23,7 @@ export const MainLayout = () => {
 		token: { colorBgContainer, borderRadiusLG },
 	} = theme.useToken()
 
-	useMemo(() => {
+	const breadcrumbItems = useMemo(() => {
 		return (matches as any[])
 			.map((m, idx) => {
 				const handle = (m as any).handle as { breadcrumb?: string } | undefined
@@ -108,8 +108,11 @@ export const MainLayout = () => {
 					</div>
 				</Header>
 				<Content style={{ margin: 0, background: '#F5F8FA' }}>
+					<div style={{ margin: '16px 16px 0 16px' }}>
+						<Breadcrumb items={breadcrumbItems.map((i) => ({ title: i.title }))} />
+					</div>
 					<div
-						style={{ margin: 16, padding: 24, minHeight: 360, background: colorBgContainer, borderRadius: borderRadiusLG }}
+						style={{ margin: '8px 16px 16px 16px', padding: 24, minHeight: 360, background: colorBgContainer, borderRadius: borderRadiusLG }}
 					>
 						<Outlet />
 					</div>

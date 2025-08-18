@@ -15,7 +15,7 @@ const Card: React.FC<{ title: React.ReactNode; extra?: React.ReactNode; children
 }
 
 function useLineChart(
-	containerRef: React.RefObject<HTMLDivElement>,
+	containerRef: React.RefObject<HTMLDivElement | null>,
 	data: number[],
 	dates: string[],
 	color = '#00BD97',
@@ -68,7 +68,7 @@ function useLineChart(
 }
 
 function useBarChart(
-	containerRef: React.RefObject<HTMLDivElement>,
+	containerRef: React.RefObject<HTMLDivElement | null>,
 	data: number[],
 	dates: string[],
 	color = '#00BD97',
@@ -134,8 +134,7 @@ export const Dashboard = () => {
 
 	return (
 		<div className="space-y-4">
-			<div className="flex items-center justify-between text-black/45">
-				<div>首页 / 数据看板</div>
+			<div className="flex items-center justify-end text-black/45">
 				<div>数据更新时间: {dayjs().format('YYYY-MM-DD HH:mm:ss')}</div>
 			</div>
 
