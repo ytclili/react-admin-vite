@@ -15,6 +15,11 @@ import SuppliersManage from '../pages/Suppliers/Manage'
 import { Users } from '../pages/Users'
 import UserDetail from '../pages/Users/Detail'
 import { Promoters } from '../pages/Promoters'
+import PromoterCommission from '../pages/Promoters/Commission'
+import PromoterPartners from '../pages/Promoters/Partners'
+import PromoterList from '../pages/Promoters/List'
+import PromoterSettlement from '../pages/Promoters/Settlement'
+import PromoterDetail from '../pages/Promoters/Detail'
 import { Operations } from '../pages/Operations'
 import { Finance } from '../pages/Finance'
 import { System } from '../pages/System'
@@ -48,6 +53,11 @@ export const router = createBrowserRouter([
 			{ path: 'users', element: <Users />, handle: { breadcrumb: '用户管理' } },
 			{ path: 'users/detail', element: <UserDetail />, handle: { breadcrumb: '用户详情' } },
 			{ path: 'promoters', element: <Promoters />, handle: { breadcrumb: '推客管理' } },
+			{ path: 'promoters/commission', element: <PromoterCommission />, handle: { breadcrumb: '分成策略管理' } },
+			{ path: 'promoters/partners', element: <PromoterPartners />, handle: { breadcrumb: '合作方管理' } },
+			{ path: 'promoters/list', element: <PromoterList />, handle: { breadcrumb: '推客列表' } },
+			{ path: 'promoters/detail', element: <PromoterDetail />, handle: { breadcrumb: '推客详情' } },
+			{ path: 'promoters/settlement', element: <PromoterSettlement />, handle: { breadcrumb: '财务结算' } },
 			{ path: 'operations', element: <Operations />, handle: { breadcrumb: '运营管理' } },
 			{ path: 'finance', element: <Finance />, handle: { breadcrumb: '财务中心' } },
 			{ path: 'system', element: <System />, handle: { breadcrumb: '系统设置' } },

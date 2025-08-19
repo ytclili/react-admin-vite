@@ -70,8 +70,12 @@ export const MainLayout = () => {
 		} else if (pathname === '/users/detail') {
 			selected = ['users-detail']
 			defaultOpen = ['users']
-		} else if (pathname === '/promoters') {
-			selected = ['promoters']
+		} else if (pathname.startsWith('/promoters')) {
+			defaultOpen = ['promoters']
+			if (pathname === '/promoters/commission') selected = ['promoters-commission']
+			else if (pathname === '/promoters/partners') selected = ['promoters-partners']
+			else if (pathname === '/promoters/list' || pathname === '/promoters') selected = ['promoters-list']
+			else if (pathname === '/promoters/settlement') selected = ['promoters-settlement']
 		} else if (pathname === '/operations') {
 			selected = ['operations']
 		} else if (pathname === '/finance') {
@@ -150,7 +154,17 @@ export const MainLayout = () => {
 								{ key: 'users-list', label: <Link to="/users">用户列表</Link> },
 							],
 						},
-						{ key: 'promoters', icon: <ShareAltOutlined />, label: <Link to="/promoters">推客管理</Link> },
+						{
+							key: 'promoters',
+							icon: <ShareAltOutlined />,
+							label: '推客管理',
+							children: [
+								{ key: 'promoters-commission', label: <Link to="/promoters/commission">分成策略管理</Link> },
+								{ key: 'promoters-partners', label: <Link to="/promoters/partners">合作方管理</Link> },
+								{ key: 'promoters-list', label: <Link to="/promoters/list">推客列表</Link> },
+								{ key: 'promoters-settlement', label: <Link to="/promoters/settlement">财务结算</Link> },
+							],
+						},
 						{ key: 'operations', icon: <RocketOutlined />, label: <Link to="/operations">运营管理</Link> },
 						{ key: 'finance', icon: <AccountBookOutlined />, label: <Link to="/finance">财务中心</Link> },
 						{ key: 'system', icon: <SettingOutlined />, label: <Link to="/system">系统设置</Link> },

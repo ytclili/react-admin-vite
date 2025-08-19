@@ -1,3 +1,7 @@
+import { Navigate } from 'react-router-dom'
+
 export const Promoters = () => {
-	return <div>推客管理</div>
+	return <Navigate to="/promoters/list" replace />
 }
+
+export default Promoters
