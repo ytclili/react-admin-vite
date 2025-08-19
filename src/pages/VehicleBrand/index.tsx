@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { 
   Table, 
@@ -9,13 +9,11 @@ import {
   Form, 
   Upload, 
   Image, 
-  Switch, 
   message,
   Popconfirm,
   Tag
 } from 'antd'
 import { 
-  SearchOutlined, 
   PlusOutlined, 
   EditOutlined, 
   ShopOutlined, 
@@ -191,8 +189,8 @@ export const VehicleBrand = () => {
 
   // Status toggle
   const handleStatusChange = (brand: BrandData) => {
-    const newStatus = brand.status === 'enabled' ? 'disabled' : 'enabled'
-    const updatedData = data.map(b => 
+    const newStatus: BrandData['status'] = brand.status === 'enabled' ? 'disabled' : 'enabled'
+    const updatedData = data.map((b): BrandData => 
       b.id === brand.id ? { ...b, status: newStatus } : b
     )
     setData(updatedData)
@@ -255,7 +253,7 @@ export const VehicleBrand = () => {
       key: 'status',
       width: 80,
       align: 'center',
-      render: (status: string) => (
+      render: (status: BrandData['status']) => (
         <Tag color={status === 'enabled' ? 'green' : 'red'}>
           {status === 'enabled' ? '启用' : '禁用'}
         </Tag>

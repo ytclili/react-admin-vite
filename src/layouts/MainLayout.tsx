@@ -65,7 +65,11 @@ export const MainLayout = () => {
 		} else if (pathname === '/suppliers') {
 			selected = ['suppliers']
 		} else if (pathname === '/users') {
-			selected = ['users']
+			selected = ['users-list']
+			defaultOpen = ['users']
+		} else if (pathname === '/users/detail') {
+			selected = ['users-detail']
+			defaultOpen = ['users']
 		} else if (pathname === '/promoters') {
 			selected = ['promoters']
 		} else if (pathname === '/operations') {
@@ -138,7 +142,14 @@ export const MainLayout = () => {
 							],
 						},
 						{ key: 'suppliers', icon: <ShopOutlined />, label: <Link to="/suppliers">供应商管理</Link> },
-						{ key: 'users', icon: <UserOutlined />, label: <Link to="/users">用户管理</Link> },
+						{
+							key: 'users',
+							icon: <UserOutlined />,
+							label: '用户管理',
+							children: [
+								{ key: 'users-list', label: <Link to="/users">用户列表</Link> },
+							],
+						},
 						{ key: 'promoters', icon: <ShareAltOutlined />, label: <Link to="/promoters">推客管理</Link> },
 						{ key: 'operations', icon: <RocketOutlined />, label: <Link to="/operations">运营管理</Link> },
 						{ key: 'finance', icon: <AccountBookOutlined />, label: <Link to="/finance">财务中心</Link> },

@@ -11,7 +11,9 @@ import Strategies from '../pages/SKU/Strategies'
 import { Orders } from '../pages/Orders'
 import { OrdersAudit } from '../pages/Orders/Audit'
 import { Suppliers } from '../pages/Suppliers'
+import SuppliersManage from '../pages/Suppliers/Manage'
 import { Users } from '../pages/Users'
+import UserDetail from '../pages/Users/Detail'
 import { Promoters } from '../pages/Promoters'
 import { Operations } from '../pages/Operations'
 import { Finance } from '../pages/Finance'
@@ -42,7 +44,9 @@ export const router = createBrowserRouter([
 			{ path: 'orders', element: <Orders />, handle: { breadcrumb: '订单列表' } },
 			{ path: 'orders/audit', element: <OrdersAudit />, handle: { breadcrumb: '审核管理' } },
 			{ path: 'suppliers', element: <Suppliers />, handle: { breadcrumb: '供应商管理' } },
+			{ path: 'suppliers/manage', element: <SuppliersManage />, handle: { breadcrumb: '管理补贴车型' } },
 			{ path: 'users', element: <Users />, handle: { breadcrumb: '用户管理' } },
+			{ path: 'users/detail', element: <UserDetail />, handle: { breadcrumb: '用户详情' } },
 			{ path: 'promoters', element: <Promoters />, handle: { breadcrumb: '推客管理' } },
 			{ path: 'operations', element: <Operations />, handle: { breadcrumb: '运营管理' } },
 			{ path: 'finance', element: <Finance />, handle: { breadcrumb: '财务中心' } },
