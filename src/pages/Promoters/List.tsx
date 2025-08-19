@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Avatar, Button, Card, Form, Input, Select, Space, Switch, Table, Tag, message } from 'antd'
+import { Avatar, Button, Card, Form, Input, Select, Space, Switch, Table, Tag } from 'antd'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 type PromoterType = '个人' | '团队成员'
@@ -171,9 +171,6 @@ export default function PromoterList() {
 		<div className="px-6 py-4 space-y-4">
 			<div className="flex items-center justify-between">
 				<div className="text-lg font-semibold">推客列表</div>
-				<Space>
-					<Button onClick={() => { const seed = defaultPromoters(partners, groups); localStorage.setItem(STORAGE_PROMOTERS, JSON.stringify(seed)); setPromoters(loadPromoters()); message.success('已填充示例数据'); }}>填充示例数据</Button>
-				</Space>
 			</div>
 			<Card>
 				<Form form={form} layout="inline" className="w-full flex flex-wrap gap-3">

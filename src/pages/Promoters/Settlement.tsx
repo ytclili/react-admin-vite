@@ -192,9 +192,6 @@ export default function PromoterSettlement() {
 						),
 						children: (
 							<Card>
-								<Space className="mb-3">
-									<Button onClick={() => { localStorage.setItem(STORAGE_WITHDRAW, JSON.stringify(defaultWithdraws())); setWithdraws(loadWithdraws()); message.success('已填充示例数据'); }}>填充示例数据</Button>
-								</Space>
 								<Table
 									rowKey="id"
 									dataSource={withdraws}

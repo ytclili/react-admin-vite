@@ -217,7 +217,6 @@ export default function PromoterPartners() {
 			<div className="flex items-center justify-between">
 				<div className="text-lg font-semibold">合作方管理</div>
 				<Space>
-					<Button onClick={() => { localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultPartners())); setPartners(loadPartners()); message.success('已填充示例数据'); }}>填充示例数据</Button>
 					<Button type="primary" onClick={openCreate}>新增合作方</Button>
 				</Space>
 			</div>

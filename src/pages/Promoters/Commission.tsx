@@ -219,7 +219,7 @@ export default function PromoterCommission() {
 			<div className="text-lg font-semibold">分成策略管理</div>
 			<Row gutter={16}>
 				<Col span={12}>
-					<Card title="分成规则配置" extra={<Space><Button onClick={() => { localStorage.setItem(STORAGE_RULES_KEY, JSON.stringify(defaultRules())); setRules(loadRules()); message.success('已填充示例规则'); }}>填充示例数据</Button><Button type="primary" onClick={handleCreateRule}>新增规则</Button></Space>}>
+					<Card title="分成规则配置" extra={<Space><Button type="primary" onClick={handleCreateRule}>新增规则</Button></Space>}>
 						<Table
 							rowKey="id"
 							dataSource={rules}
@@ -246,7 +246,7 @@ export default function PromoterCommission() {
 					</Card>
 				</Col>
 				<Col span={12}>
-					<Card title="分成策略组" extra={<Space><Button onClick={() => { localStorage.setItem(STORAGE_GROUPS_KEY, JSON.stringify(defaultGroups())); setGroups(loadGroups()); message.success('已填充示例策略组'); }}>填充示例数据</Button><Button type="primary" onClick={handleCreateGroup}>新增策略组</Button></Space>}>
+					<Card title="分成策略组" extra={<Space><Button type="primary" onClick={handleCreateGroup}>新增策略组</Button></Space>}>
 						<Table
 							rowKey="id"
 							dataSource={groups}
