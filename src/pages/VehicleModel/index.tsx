@@ -23,6 +23,7 @@ import {
   TagsOutlined
 } from '@ant-design/icons'
 import type { ColumnsType } from 'antd/es/table'
+import { useNavigate } from 'react-router-dom'
 
 const { Search } = Input
 const { Option } = Select
@@ -103,6 +104,7 @@ const mockVehicleModels: VehicleModelData[] = [
 ]
 
 export const VehicleModel = () => {
+  const navigate = useNavigate()
   const [data, setData] = useState<VehicleModelData[]>(mockVehicleModels)
   const [filteredData, setFilteredData] = useState<VehicleModelData[]>(mockVehicleModels)
   const [searchValue, setSearchValue] = useState('')
@@ -239,6 +241,11 @@ export const VehicleModel = () => {
     message.success('车型删除成功')
   }
 
+  // Navigate to SKU management
+  const handleManageSKU = (model: VehicleModelData) => {
+    navigate(`/sku?modelId=${encodeURIComponent(model.id)}&modelName=${encodeURIComponent(model.name)}`)
+  }
+
   // Table columns
   const columns: ColumnsType<VehicleModelData> = [
     {
@@ -311,7 +318,7 @@ export const VehicleModel = () => {
           <Button 
             type="link" 
             icon={<TagsOutlined />}
-            onClick={() => message.info('进入SKU管理页面')}
+            onClick={() => handleManageSKU(record)}
           >
             管理SKU
           </Button>
