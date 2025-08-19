@@ -9,6 +9,7 @@ import { SKU } from '../pages/SKU'
 // Lazy import for strategies could be considered; keeping simple import path
 import Strategies from '../pages/SKU/Strategies'
 import { Orders } from '../pages/Orders'
+import { OrdersAudit } from '../pages/Orders/Audit'
 import { Suppliers } from '../pages/Suppliers'
 import { Users } from '../pages/Users'
 import { Promoters } from '../pages/Promoters'
@@ -38,7 +39,8 @@ export const router = createBrowserRouter([
 			},
 			{ path: 'sku', element: <SKU />, handle: { breadcrumb: 'SKU管理' } },
 			{ path: 'sku/strategies', element: <Strategies />, handle: { breadcrumb: '管理补贴策略' } },
-			{ path: 'orders', element: <Orders />, handle: { breadcrumb: '订单管理' } },
+			{ path: 'orders', element: <Orders />, handle: { breadcrumb: '订单列表' } },
+			{ path: 'orders/audit', element: <OrdersAudit />, handle: { breadcrumb: '审核管理' } },
 			{ path: 'suppliers', element: <Suppliers />, handle: { breadcrumb: '供应商管理' } },
 			{ path: 'users', element: <Users />, handle: { breadcrumb: '用户管理' } },
 			{ path: 'promoters', element: <Promoters />, handle: { breadcrumb: '推客管理' } },

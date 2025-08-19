@@ -12,42 +12,82 @@ import {
 	RocketOutlined,
 	AccountBookOutlined,
 } from '@ant-design/icons'
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 
 const { Header, Content, Sider } = Layout
 
 export const MainLayout = () => {
 	const location = useLocation()
 	const matches = useMatches()
+	const [openKeys, setOpenKeys] = useState<string[]>([])
 	const {
 		token: { colorBgContainer, borderRadiusLG },
 	} = theme.useToken()
 
 	const breadcrumbItems = useMemo(() => {
 		return (matches as any[])
+			.filter(m => (m as any).handle?.breadcrumb)
 			.map((m, idx) => {
 				const handle = (m as any).handle as { breadcrumb?: string } | undefined
 				const pathname = (m as any).pathname as string | undefined
-				if (!handle?.breadcrumb) return null
-				return { title: handle.breadcrumb!, key: `${pathname || idx}` }
-			})
-			.filter(Boolean) as { title: string; key: string }[]
+				return { title: handle!.breadcrumb!, key: `${pathname || idx}` }
+			}) as { title: string; key: string }[]
 	}, [matches])
 
-	const selectedKeys = useMemo(() => {
-		if (location.pathname.startsWith('/vehicle/brand')) return ['vehicle-brand']
-		if (location.pathname.startsWith('/vehicle/model')) return ['vehicle-model']
-		if (location.pathname.startsWith('/sku')) return ['sku']
-		if (location.pathname.startsWith('/orders')) return ['orders']
-		if (location.pathname.startsWith('/suppliers')) return ['suppliers']
-		if (location.pathname.startsWith('/users')) return ['users']
-		if (location.pathname.startsWith('/promoters')) return ['promoters']
-		if (location.pathname.startsWith('/operations')) return ['operations']
-		if (location.pathname.startsWith('/finance')) return ['finance']
-		if (location.pathname.startsWith('/system')) return ['system']
-		if (location.pathname.startsWith('/settings')) return ['settings']
-		return ['dashboard']
+	// Calculate selected keys and open keys for menu
+	const { selectedKeys, defaultOpenKeys } = useMemo(() => {
+		const pathname = location.pathname
+		let selected: string[] = []
+		let defaultOpen: string[] = []
+
+		// Check for exact matches first
+		if (pathname === '/') {
+			selected = ['dashboard']
+		} else if (pathname.startsWith('/vehicle')) {
+			defaultOpen = ['vehicle']
+			if (pathname === '/vehicle/brand') {
+				selected = ['vehicle-brand']
+			} else if (pathname === '/vehicle/brand/stores') {
+				selected = ['vehicle-brand-stores']
+			} else if (pathname === '/vehicle/model') {
+				selected = ['vehicle-model']
+			}
+		} else if (pathname === '/sku') {
+			selected = ['sku']
+		} else if (pathname === '/sku/strategies') {
+			selected = ['sku-strategies']
+		} else if (pathname === '/orders') {
+			selected = ['orders-list']
+			defaultOpen = ['orders']
+		} else if (pathname === '/orders/audit') {
+			selected = ['orders-audit']
+			defaultOpen = ['orders']
+		} else if (pathname === '/suppliers') {
+			selected = ['suppliers']
+		} else if (pathname === '/users') {
+			selected = ['users']
+		} else if (pathname === '/promoters') {
+			selected = ['promoters']
+		} else if (pathname === '/operations') {
+			selected = ['operations']
+		} else if (pathname === '/finance') {
+			selected = ['finance']
+		} else if (pathname === '/system') {
+			selected = ['system']
+		} else if (pathname.startsWith('/settings')) {
+			defaultOpen = ['settings']
+			if (pathname === '/settings/general') {
+				selected = ['settings-general']
+			}
+		}
+
+		return { selectedKeys: selected, defaultOpenKeys: defaultOpen }
 	}, [location.pathname])
+
+	// Set initial open keys when component mounts or pathname changes
+	useEffect(() => {
+		setOpenKeys(defaultOpenKeys)
+	}, [defaultOpenKeys])
 
 	const [collapsed, setCollapsed] = useState(false)
 
@@ -68,6 +108,8 @@ export const MainLayout = () => {
 					theme="light"
 					mode="inline"
 					selectedKeys={selectedKeys}
+					openKeys={openKeys}
+					onOpenChange={setOpenKeys}
 					items={[
 						{ key: 'dashboard', icon: <DashboardOutlined />, label: <Link to="/">数据看板</Link> },
 						{
@@ -80,7 +122,21 @@ export const MainLayout = () => {
 							],
 						},
 						{ key: 'sku', icon: <TagsOutlined />, label: <Link to="/sku">SKU管理</Link> },
-						{ key: 'orders', icon: <ReconciliationOutlined />, label: <Link to="/orders">订单管理</Link> },
+						{
+							key: 'orders',
+							icon: <ReconciliationOutlined />,
+							label: '订单管理',
+							children: [
+								{
+									key: 'orders-list',
+									label: <Link to="/orders">订单列表</Link>,
+								},
+								{
+									key: 'orders-audit',
+									label: <Link to="/orders/audit">审核管理</Link>,
+								},
+							],
+						},
 						{ key: 'suppliers', icon: <ShopOutlined />, label: <Link to="/suppliers">供应商管理</Link> },
 						{ key: 'users', icon: <UserOutlined />, label: <Link to="/users">用户管理</Link> },
 						{ key: 'promoters', icon: <ShareAltOutlined />, label: <Link to="/promoters">推客管理</Link> },
@@ -100,7 +156,8 @@ export const MainLayout = () => {
 			</Sider>
 			<Layout>
 				<Header style={{ background: '#FFFFFF', borderBottom: '1px solid #F0F0F0' }} className="px-6">
-					<div className="flex items-center justify-end">
+					<div className="flex items-center justify-between">
+						<Breadcrumb items={breadcrumbItems} />
 						<Space size={12}>
 							<Avatar size={32}>管</Avatar>
 							<span className="text-black/88">管理员</span>
@@ -108,11 +165,8 @@ export const MainLayout = () => {
 					</div>
 				</Header>
 				<Content style={{ margin: 0, background: '#F5F8FA' }}>
-					<div style={{ margin: '16px 16px 0 16px' }}>
-						<Breadcrumb items={breadcrumbItems.map((i) => ({ title: i.title }))} />
-					</div>
 					<div
-						style={{ margin: '8px 16px 16px 16px', padding: 24, minHeight: 360, background: colorBgContainer, borderRadius: borderRadiusLG }}
+						style={{ margin: '16px', padding: 24, minHeight: 360, background: colorBgContainer, borderRadius: borderRadiusLG }}
 					>
 						<Outlet />
 					</div>
