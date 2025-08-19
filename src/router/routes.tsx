@@ -4,6 +4,7 @@ import { Dashboard } from '../pages/Dashboard'
 import { SettingsGeneral } from '../pages/Settings/General'
 import { VehicleBrand } from '../pages/VehicleBrand'
 import { VehicleModel } from '../pages/VehicleModel'
+import { StoreManage } from '../pages/VehicleBrand/StoreManage'
 import { SKU } from '../pages/SKU'
 import { Orders } from '../pages/Orders'
 import { Suppliers } from '../pages/Suppliers'
@@ -29,6 +30,7 @@ export const router = createBrowserRouter([
 				handle: { breadcrumb: '车型管理' },
 				children: [
 					{ path: 'brand', element: <VehicleBrand />, handle: { breadcrumb: '品牌管理' } },
+					{ path: 'brand/stores', element: <StoreManage />, handle: { breadcrumb: '门店管理' } },
 					{ path: 'model', element: <VehicleModel />, handle: { breadcrumb: '车型管理' } },
 				],
 			},
