@@ -20,7 +20,12 @@ import PromoterPartners from '../pages/Promoters/Partners'
 import PromoterList from '../pages/Promoters/List'
 import PromoterSettlement from '../pages/Promoters/Settlement'
 import PromoterDetail from '../pages/Promoters/Detail'
-import { Operations } from '../pages/Operations'
+import OperationsBanner from '../pages/Operations/Banner'
+import OperationsPush from '../pages/Operations/Push'
+import OperationsAssets from '../pages/Operations/Assets'
+import OperationsTags from '../pages/Operations/Tags'
+import OperationsCopywriting from '../pages/Operations/Copywriting'
+import OperationsFeedback from '../pages/Operations/Feedback'
 import { Finance } from '../pages/Finance'
 import { System } from '../pages/System'
 
@@ -58,7 +63,18 @@ export const router = createBrowserRouter([
 			{ path: 'promoters/list', element: <PromoterList />, handle: { breadcrumb: '推客列表' } },
 			{ path: 'promoters/detail', element: <PromoterDetail />, handle: { breadcrumb: '推客详情' } },
 			{ path: 'promoters/settlement', element: <PromoterSettlement />, handle: { breadcrumb: '财务结算' } },
-			{ path: 'operations', element: <Operations />, handle: { breadcrumb: '运营管理' } },
+			{
+				path: 'operations',
+				handle: { breadcrumb: '运营管理' },
+				children: [
+					{ path: 'banner', element: <OperationsBanner />, handle: { breadcrumb: 'Banner管理' } },
+					{ path: 'push', element: <OperationsPush />, handle: { breadcrumb: '消息推送' } },
+					{ path: 'assets', element: <OperationsAssets />, handle: { breadcrumb: '素材管理' } },
+					{ path: 'tags', element: <OperationsTags />, handle: { breadcrumb: '标签管理' } },
+					{ path: 'copywriting', element: <OperationsCopywriting />, handle: { breadcrumb: '文案管理' } },
+					{ path: 'feedback', element: <OperationsFeedback />, handle: { breadcrumb: '意见反馈' } },
+				],
+			},
 			{ path: 'finance', element: <Finance />, handle: { breadcrumb: '财务中心' } },
 			{ path: 'system', element: <System />, handle: { breadcrumb: '系统设置' } },
 			{

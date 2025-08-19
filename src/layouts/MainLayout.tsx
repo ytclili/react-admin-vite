@@ -76,8 +76,14 @@ export const MainLayout = () => {
 			else if (pathname === '/promoters/partners') selected = ['promoters-partners']
 			else if (pathname === '/promoters/list' || pathname === '/promoters') selected = ['promoters-list']
 			else if (pathname === '/promoters/settlement') selected = ['promoters-settlement']
-		} else if (pathname === '/operations') {
-			selected = ['operations']
+		} else if (pathname.startsWith('/operations')) {
+			defaultOpen = ['operations']
+			if (pathname === '/operations/banner') selected = ['operations-banner']
+			else if (pathname === '/operations/push') selected = ['operations-push']
+			else if (pathname === '/operations/assets') selected = ['operations-assets']
+			else if (pathname === '/operations/tags') selected = ['operations-tags']
+			else if (pathname === '/operations/copywriting') selected = ['operations-copywriting']
+			else if (pathname === '/operations/feedback') selected = ['operations-feedback']
 		} else if (pathname === '/finance') {
 			selected = ['finance']
 		} else if (pathname === '/system') {
@@ -165,7 +171,19 @@ export const MainLayout = () => {
 								{ key: 'promoters-settlement', label: <Link to="/promoters/settlement">财务结算</Link> },
 							],
 						},
-						{ key: 'operations', icon: <RocketOutlined />, label: <Link to="/operations">运营管理</Link> },
+						{
+							key: 'operations',
+							icon: <RocketOutlined />,
+							label: '运营管理',
+							children: [
+								{ key: 'operations-banner', label: <Link to="/operations/banner">Banner管理</Link> },
+								{ key: 'operations-push', label: <Link to="/operations/push">消息推送</Link> },
+								{ key: 'operations-assets', label: <Link to="/operations/assets">素材管理</Link> },
+								{ key: 'operations-tags', label: <Link to="/operations/tags">标签管理</Link> },
+								{ key: 'operations-copywriting', label: <Link to="/operations/copywriting">文案管理</Link> },
+								{ key: 'operations-feedback', label: <Link to="/operations/feedback">意见反馈</Link> },
+							],
+						},
 						{ key: 'finance', icon: <AccountBookOutlined />, label: <Link to="/finance">财务中心</Link> },
 						{ key: 'system', icon: <SettingOutlined />, label: <Link to="/system">系统设置</Link> },
 						{
