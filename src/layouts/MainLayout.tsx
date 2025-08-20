@@ -54,68 +54,66 @@ export const MainLayout = () => {
 			}) as { title: React.ReactNode; key: string; pathname: string }[]
 	}, [matches, navigate])
 
-	// Calculate selected keys and open keys for menu
+	// Calculate selected keys and open keys via rules to avoid long if/else
 	const { selectedKeys, defaultOpenKeys } = useMemo(() => {
 		const pathname = location.pathname
-		let selected: string[] = []
-		let defaultOpen: string[] = []
 
-		// Check for exact matches first
-		if (pathname === '/') {
-			selected = ['dashboard']
-		} else if (pathname.startsWith('/vehicle')) {
-			defaultOpen = ['vehicle']
-			if (pathname === '/vehicle/brand') {
-				selected = ['vehicle-brand']
-			} else if (pathname === '/vehicle/brand/stores') {
-				selected = ['vehicle-brand-stores']
-			} else if (pathname === '/vehicle/model') {
-				selected = ['vehicle-model']
+		type MenuRule = { pattern: RegExp; selected: string; open?: string }
+		const rules: MenuRule[] = [
+			{ pattern: /^\/$/, selected: 'dashboard' },
+			// vehicle
+			{ pattern: /^\/vehicle\/brand$/, selected: 'vehicle-brand', open: 'vehicle' },
+			{ pattern: /^\/vehicle\/brand\/stores$/, selected: 'vehicle-brand-stores', open: 'vehicle' },
+			{ pattern: /^\/vehicle\/model$/, selected: 'vehicle-model', open: 'vehicle' },
+			// sku
+			{ pattern: /^\/sku$/, selected: 'sku' },
+			{ pattern: /^\/sku\/strategies$/, selected: 'sku-strategies' },
+			// orders
+			{ pattern: /^\/orders$/, selected: 'orders-list', open: 'orders' },
+			{ pattern: /^\/orders\/audit$/, selected: 'orders-audit', open: 'orders' },
+			// suppliers
+			{ pattern: /^\/suppliers$/, selected: 'suppliers' },
+			// users
+			{ pattern: /^\/users$/, selected: 'users-list', open: 'users' },
+			{ pattern: /^\/users\/detail$/, selected: 'users-detail', open: 'users' },
+			// promoters
+			{ pattern: /^\/promoters\/?$/, selected: 'promoters-list', open: 'promoters' },
+			{ pattern: /^\/promoters\/list$/, selected: 'promoters-list', open: 'promoters' },
+			{ pattern: /^\/promoters\/commission$/, selected: 'promoters-commission', open: 'promoters' },
+			{ pattern: /^\/promoters\/partners$/, selected: 'promoters-partners', open: 'promoters' },
+			{ pattern: /^\/promoters\/settlement$/, selected: 'promoters-settlement', open: 'promoters' },
+			// operations
+			{ pattern: /^\/operations\/banner$/, selected: 'operations-banner', open: 'operations' },
+			{ pattern: /^\/operations\/push$/, selected: 'operations-push', open: 'operations' },
+			{ pattern: /^\/operations\/assets$/, selected: 'operations-assets', open: 'operations' },
+			{ pattern: /^\/operations\/tags$/, selected: 'operations-tags', open: 'operations' },
+			{ pattern: /^\/operations\/copywriting$/, selected: 'operations-copywriting', open: 'operations' },
+			{ pattern: /^\/operations\/feedback$/, selected: 'operations-feedback', open: 'operations' },
+			// finance
+			{ pattern: /^\/finance\/overview$/, selected: 'finance-overview', open: 'finance' },
+			{ pattern: /^\/finance\/suppliers$/, selected: 'finance-suppliers', open: 'finance' },
+			{ pattern: /^\/finance\/payments$/, selected: 'finance-payments', open: 'finance' },
+			// permissions
+			{ pattern: /^\/permissions\/roles$/, selected: 'permissions-roles', open: 'permissions' },
+			{ pattern: /^\/permissions\/accounts$/, selected: 'permissions-accounts', open: 'permissions' },
+		]
+
+		for (const rule of rules) {
+			if (rule.pattern.test(pathname)) {
+				return {
+					selectedKeys: [rule.selected],
+					defaultOpenKeys: rule.open ? [rule.open] : [],
+				}
 			}
-		} else if (pathname === '/sku') {
-			selected = ['sku']
-		} else if (pathname === '/sku/strategies') {
-			selected = ['sku-strategies']
-		} else if (pathname === '/orders') {
-			selected = ['orders-list']
-			defaultOpen = ['orders']
-		} else if (pathname === '/orders/audit') {
-			selected = ['orders-audit']
-			defaultOpen = ['orders']
-		} else if (pathname === '/suppliers') {
-			selected = ['suppliers']
-		} else if (pathname === '/users') {
-			selected = ['users-list']
-			defaultOpen = ['users']
-		} else if (pathname === '/users/detail') {
-			selected = ['users-detail']
-			defaultOpen = ['users']
-		} else if (pathname.startsWith('/promoters')) {
-			defaultOpen = ['promoters']
-			if (pathname === '/promoters/commission') selected = ['promoters-commission']
-			else if (pathname === '/promoters/partners') selected = ['promoters-partners']
-			else if (pathname === '/promoters/list' || pathname === '/promoters') selected = ['promoters-list']
-			else if (pathname === '/promoters/settlement') selected = ['promoters-settlement']
-		} else if (pathname.startsWith('/operations')) {
-			defaultOpen = ['operations']
-			if (pathname === '/operations/banner') selected = ['operations-banner']
-			else if (pathname === '/operations/push') selected = ['operations-push']
-			else if (pathname === '/operations/assets') selected = ['operations-assets']
-			else if (pathname === '/operations/tags') selected = ['operations-tags']		
-			else if (pathname === '/operations/copywriting') selected = ['operations-copywriting']
-			else if (pathname === '/operations/feedback') selected = ['operations-feedback']
-		} else if (pathname.startsWith('/finance')) {
-			defaultOpen = ['finance']
-			if (pathname === '/finance/overview') selected = ['finance-overview']
-			else if (pathname === '/finance/suppliers') selected = ['finance-suppliers']
-			else if (pathname === '/finance/payments') selected = ['finance-payments']
-		} else if (pathname.startsWith('/permissions')) {
-			defaultOpen = ['permissions']
-			if (pathname === '/permissions/roles') selected = ['permissions-roles']
-			else if (pathname === '/permissions/accounts') selected = ['permissions-accounts']
 		}
 
-		return { selectedKeys: selected, defaultOpenKeys: defaultOpen }
+		// Fallback: open the first segment as group if it matches a parent menu
+		const first = pathname.split('/')[1]
+		const parentGroups = new Set(['vehicle', 'orders', 'users', 'promoters', 'operations', 'finance', 'permissions'])
+		return {
+			selectedKeys: [],
+			defaultOpenKeys: parentGroups.has(first) ? [first] : [],
+		}
 	}, [location.pathname])
 
 	// Set initial open keys when component mounts or pathname changes
