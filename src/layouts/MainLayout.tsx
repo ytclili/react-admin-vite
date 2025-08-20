@@ -1,5 +1,6 @@
+import React from 'react'
 import { Layout, Menu, theme, Avatar, Space, Breadcrumb } from 'antd'
-import { Outlet, Link, useMatches, useLocation } from 'react-router-dom'
+import { Outlet, Link, useMatches, useLocation, useNavigate } from 'react-router-dom'
 import {
 	SettingOutlined,
 	DashboardOutlined,
@@ -12,6 +13,8 @@ import {
 	RocketOutlined,
 	AccountBookOutlined,
 	SafetyCertificateOutlined,
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
 } from '@ant-design/icons'
 import { useMemo, useState, useEffect } from 'react'
 
@@ -19,6 +22,7 @@ const { Header, Content, Sider } = Layout
 
 export const MainLayout = () => {
 	const location = useLocation()
+	const navigate = useNavigate()
 	const matches = useMatches()
 	const [openKeys, setOpenKeys] = useState<string[]>([])
 	const {
@@ -31,9 +35,24 @@ export const MainLayout = () => {
 			.map((m, idx) => {
 				const handle = (m as any).handle as { breadcrumb?: string } | undefined
 				const pathname = (m as any).pathname as string | undefined
-				return { title: handle!.breadcrumb!, key: `${pathname || idx}` }
-			}) as { title: string; key: string }[]
-	}, [matches])
+				const isLast = idx === (matches as any[]).filter(m => (m as any).handle?.breadcrumb).length - 1
+				
+				return { 
+					title: isLast ? (
+						<span className="text-black/88">{handle!.breadcrumb!}</span>
+					) : (
+						<button 
+							className="text-[#00BD97] hover:text-[#00A085] transition-colors cursor-pointer"
+							onClick={() => navigate(pathname || '/')}
+						>
+							{handle!.breadcrumb!}
+						</button>
+					), 
+					key: `${pathname || idx}`,
+					pathname: pathname || '/'
+				}
+			}) as { title: React.ReactNode; key: string; pathname: string }[]
+	}, [matches, navigate])
 
 	// Calculate selected keys and open keys for menu
 	const { selectedKeys, defaultOpenKeys } = useMemo(() => {
@@ -114,17 +133,33 @@ export const MainLayout = () => {
 				collapsible
 				collapsed={collapsed}
 				onCollapse={(val) => setCollapsed(val)}
-				style={{ background: '#FFFFFF', borderRight: '1px solid #F0F0F0' }}
+				trigger={null}
+				style={{ 
+					background: '#FFFFFF', 
+					borderRight: '1px solid #F0F0F0',
+					position: 'fixed',
+					top: 0,
+					bottom: 0,
+					left: 0,
+					zIndex: 100,
+					overflowY: 'auto',
+				}}
 			>
-				<div className="px-6 py-4 border-b border-[#F0F0F0] bg-white">
-					<div className="text-lg font-semibold text-black/90">新车帮买</div>
+				<div className="px-4 py-3 border-b border-[#F0F0F0] bg-white">
+					{collapsed ? (
+						<div className="h-10 flex items-center justify-center">
+							<div className="w-8 h-8 rounded-md bg-[#00BD97] text-white text-sm flex items-center justify-center leading-none">车</div>
+						</div>
+					) : (
+						<div className="text-lg font-semibold text-black/90">新车帮买</div>
+					)}
 				</div>
 				<Menu
 					theme="light"
 					mode="inline"
 					selectedKeys={selectedKeys}
 					openKeys={openKeys}
-					onOpenChange={setOpenKeys}
+					onOpenChange={(keys) => setOpenKeys(keys as string[])}
 					items={[
 						{ key: 'dashboard', icon: <DashboardOutlined />, label: <Link to="/">数据看板</Link> },
 						{
@@ -207,17 +242,27 @@ export const MainLayout = () => {
 					]}
 				/>
 			</Sider>
-			<Layout>
-				<Header style={{ background: '#FFFFFF', borderBottom: '1px solid #F0F0F0' }} className="px-6">
+			{/* push content to the right of fixed sider */}
+			<Layout style={{ marginLeft: collapsed ? 64 : 256, height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+				<Header style={{ background: '#FFFFFF', borderBottom: '1px solid #F0F0F0', position: 'sticky', top: 0, zIndex: 10 }} className="px-4">
 					<div className="flex items-center justify-between">
-						<Breadcrumb items={breadcrumbItems} />
+						<div className="flex items-center gap-3">
+							<button
+								className="p-1 rounded hover:bg-gray-100 transition-colors text-black/65"
+								onClick={() => setCollapsed(!collapsed)}
+								aria-label={collapsed ? '展开侧边栏' : '收起侧边栏'}
+							>
+								{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+							</button>
+							<Breadcrumb items={breadcrumbItems} />
+						</div>
 						<Space size={12}>
 							<Avatar size={32}>管</Avatar>
 							<span className="text-black/88">管理员</span>
 						</Space>
 					</div>
 				</Header>
-				<Content style={{ margin: 0, background: '#F5F8FA' }}>
+				<Content style={{ margin: 0, background: '#F5F8FA', flex: 1, overflow: 'auto' }}>
 					<div
 						style={{ margin: '16px', padding: 24, minHeight: 360, background: colorBgContainer, borderRadius: borderRadiusLG }}
 					>
