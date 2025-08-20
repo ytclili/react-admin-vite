@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import * as echarts from 'echarts'
 import dayjs from 'dayjs'
 
@@ -94,6 +95,7 @@ function useBarChart(
 }
 
 export const Dashboard = () => {
+	const navigate = useNavigate()
 	const dates = Array.from({ length: 7 }, (_, i) => dayjs().subtract(6 - i, 'day').format('MM/DD'))
 	const leftRef = useRef<HTMLDivElement | null>(null)
 	const rightRef = useRef<HTMLDivElement | null>(null)
@@ -139,7 +141,14 @@ export const Dashboard = () => {
 			</div>
 
 			<div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-				<Card title={<span className="flex items-center gap-2">订单看板</span>} extra="查看更多">
+				<Card title={<span className="flex items-center gap-2">订单看板</span>} extra={
+					<button 
+						className="text-[#00BD97] hover:text-[#00A085] transition-colors cursor-pointer"
+						onClick={() => navigate('/orders')}
+					>
+						查看更多
+					</button>
+				}>
 					<div className="flex items-center gap-12">
 						<div className="space-y-2">
 							<div className="text-black/45">今日新增订单</div>
@@ -162,7 +171,14 @@ export const Dashboard = () => {
 					<div ref={leftRef as any} style={{ width: '100%', height: 180 }} />
 				</Card>
 
-				<Card title={<span className="flex items-center gap-2">用户看板</span>} extra="查看更多">
+				<Card title={<span className="flex items-center gap-2">用户看板</span>} extra={
+					<button 
+						className="text-[#00BD97] hover:text-[#00A085] transition-colors cursor-pointer"
+						onClick={() => navigate('/users')}
+					>
+						查看更多
+					</button>
+				}>
 					<div className="flex items-center gap-12">
 						<div className="space-y-2">
 							<div className="text-black/45">总用户数</div>
@@ -187,7 +203,14 @@ export const Dashboard = () => {
 			</div>
 
 			<div className="grid grid-cols-1 xl:grid-cols-2 gap-10 items-start">
-				<Card title={<span className="flex items-center gap-2">推客看板</span>} extra="查看更多">
+				<Card title={<span className="flex items-center gap-2">推客看板</span>} extra={
+					<button 
+						className="text-[#00BD97] hover:text-[#00A085] transition-colors cursor-pointer"
+						onClick={() => navigate('/promoters/list')}
+					>
+						查看更多
+					</button>
+				}>
 					<div className="flex items-center gap-12">
 						<div className="space-y-2">
 							<div className="text-black/45">总推客数</div>
@@ -210,7 +233,14 @@ export const Dashboard = () => {
 					<div ref={bottomLeftRef as any} style={{ width: '100%', height: 180 }} />
 				</Card>
 
-				<Card title={<span className="flex items-center gap-2">财务看板</span>} extra="查看更多">
+				<Card title={<span className="flex items-center gap-2">财务看板</span>} extra={
+					<button 
+						className="text-[#00BD97] hover:text-[#00A085] transition-colors cursor-pointer"
+						onClick={() => navigate('/finance/overview')}
+					>
+						查看更多
+					</button>
+				}>
 					<div className="flex items-start gap-6">
 						<div ref={financeRef as any} style={{ width: 260, height: 200 }} />
 						<div className="space-y-4">
@@ -229,7 +259,12 @@ export const Dashboard = () => {
 						</div>
 					</div>
 					<div className="mt-4 flex justify-center">
-						<button className="px-4 py-2 bg-[#00BD97] text-white rounded-md">进入财务中心</button>
+						<button 
+							className="px-4 py-2 bg-[#00BD97] text-white rounded-md hover:bg-[#00A085] transition-colors"
+							onClick={() => navigate('/finance/overview')}
+						>
+							进入财务中心
+						</button>
 					</div>
 				</Card>
 			</div>
