@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { MainLayout } from '../layouts/MainLayout'
 import { Dashboard } from '../pages/Dashboard'
-import { SettingsGeneral } from '../pages/Settings/General'
 import { VehicleBrand } from '../pages/VehicleBrand'
 import { VehicleModel } from '../pages/VehicleModel'
 import { StoreManage } from '../pages/VehicleBrand/StoreManage'
@@ -21,13 +20,16 @@ import PromoterList from '../pages/Promoters/List'
 import PromoterSettlement from '../pages/Promoters/Settlement'
 import PromoterDetail from '../pages/Promoters/Detail'
 import OperationsBanner from '../pages/Operations/Banner'
-import OperationsPush from '../pages/Operations/Push'
-import OperationsAssets from '../pages/Operations/Assets'
+import OperationsPush from '../pages/Operations/Push.tsx'
+import OperationsAssets from '../pages/Operations/Assets.tsx'
 import OperationsTags from '../pages/Operations/Tags'
 import OperationsCopywriting from '../pages/Operations/Copywriting'
 import OperationsFeedback from '../pages/Operations/Feedback'
-import { Finance } from '../pages/Finance'
-import { System } from '../pages/System'
+import FinanceOverview from '../pages/Finance/Overview.tsx'
+import FinanceSuppliers from '../pages/Finance/Suppliers.tsx'
+import FinancePayments from '../pages/Finance/Payments.tsx'
+import Roles from '../pages/Permissions/Roles'
+import Accounts from '../pages/Permissions/Accounts'
 
 export const router = createBrowserRouter([
 	{
@@ -75,17 +77,21 @@ export const router = createBrowserRouter([
 					{ path: 'feedback', element: <OperationsFeedback />, handle: { breadcrumb: '意见反馈' } },
 				],
 			},
-			{ path: 'finance', element: <Finance />, handle: { breadcrumb: '财务中心' } },
-			{ path: 'system', element: <System />, handle: { breadcrumb: '系统设置' } },
 			{
-				path: 'settings',
-				handle: { breadcrumb: '设置' },
+				path: 'finance',
+				handle: { breadcrumb: '财务中心' },
 				children: [
-					{
-						path: 'general',
-						element: <SettingsGeneral />,
-						handle: { breadcrumb: '通用设置'},
-					},
+					{ path: 'overview', element: <FinanceOverview />, handle: { breadcrumb: '财务概览' } },
+					{ path: 'suppliers', element: <FinanceSuppliers />, handle: { breadcrumb: '供应商结算管理' } },
+					{ path: 'payments', element: <FinancePayments />, handle: { breadcrumb: '付款管理' } },
+				],
+			},
+			{
+				path: 'permissions',
+				handle: { breadcrumb: '权限管理' },
+				children: [
+					{ path: 'roles', element: <Roles />, handle: { breadcrumb: '角色管理' } },
+					{ path: 'accounts', element: <Accounts />, handle: { breadcrumb: '账号管理' } },
 				],
 			},
 		],

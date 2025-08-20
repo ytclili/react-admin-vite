@@ -11,6 +11,7 @@ import {
 	ShareAltOutlined,
 	RocketOutlined,
 	AccountBookOutlined,
+	SafetyCertificateOutlined,
 } from '@ant-design/icons'
 import { useMemo, useState, useEffect } from 'react'
 
@@ -81,18 +82,18 @@ export const MainLayout = () => {
 			if (pathname === '/operations/banner') selected = ['operations-banner']
 			else if (pathname === '/operations/push') selected = ['operations-push']
 			else if (pathname === '/operations/assets') selected = ['operations-assets']
-			else if (pathname === '/operations/tags') selected = ['operations-tags']
+			else if (pathname === '/operations/tags') selected = ['operations-tags']		
 			else if (pathname === '/operations/copywriting') selected = ['operations-copywriting']
 			else if (pathname === '/operations/feedback') selected = ['operations-feedback']
-		} else if (pathname === '/finance') {
-			selected = ['finance']
-		} else if (pathname === '/system') {
-			selected = ['system']
-		} else if (pathname.startsWith('/settings')) {
-			defaultOpen = ['settings']
-			if (pathname === '/settings/general') {
-				selected = ['settings-general']
-			}
+		} else if (pathname.startsWith('/finance')) {
+			defaultOpen = ['finance']
+			if (pathname === '/finance/overview') selected = ['finance-overview']
+			else if (pathname === '/finance/suppliers') selected = ['finance-suppliers']
+			else if (pathname === '/finance/payments') selected = ['finance-payments']
+		} else if (pathname.startsWith('/permissions')) {
+			defaultOpen = ['permissions']
+			if (pathname === '/permissions/roles') selected = ['permissions-roles']
+			else if (pathname === '/permissions/accounts') selected = ['permissions-accounts']
 		}
 
 		return { selectedKeys: selected, defaultOpenKeys: defaultOpen }
@@ -184,14 +185,23 @@ export const MainLayout = () => {
 								{ key: 'operations-feedback', label: <Link to="/operations/feedback">意见反馈</Link> },
 							],
 						},
-						{ key: 'finance', icon: <AccountBookOutlined />, label: <Link to="/finance">财务中心</Link> },
-						{ key: 'system', icon: <SettingOutlined />, label: <Link to="/system">系统设置</Link> },
 						{
-							key: 'settings',
-							icon: <SettingOutlined />,
-							label: '设置',
+							key: 'finance',
+							icon: <AccountBookOutlined />,
+							label: '财务中心',
 							children: [
-								{ key: 'settings-general', label: <Link to="/settings/general">通用设置</Link> },
+								{ key: 'finance-overview', label: <Link to="/finance/overview">财务概览</Link> },
+								{ key: 'finance-suppliers', label: <Link to="/finance/suppliers">供应商结算管理</Link> },
+								{ key: 'finance-payments', label: <Link to="/finance/payments">付款管理</Link> },
+							],
+						},
+						{
+							key: 'permissions',
+							icon: <SafetyCertificateOutlined />,
+							label: '权限管理',
+							children: [
+								{ key: 'permissions-roles', label: <Link to="/permissions/roles">角色管理</Link> },
+								{ key: 'permissions-accounts', label: <Link to="/permissions/accounts">账号管理</Link> },
 							],
 						},
 					]}
