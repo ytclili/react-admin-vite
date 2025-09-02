@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { MainLayout } from '../layouts/MainLayout'
+import Login from '../pages/Login'
 import { Dashboard } from '../pages/Dashboard'
 import { VehicleBrand } from '../pages/VehicleBrand'
 import { VehicleModel } from '../pages/VehicleModel'
@@ -32,6 +33,10 @@ import Roles from '../pages/Permissions/Roles'
 import Accounts from '../pages/Permissions/Accounts'
 
 export const router = createBrowserRouter([
+	{
+		path: '/login',
+		element: <Login />,
+	},
 	{
 		path: '/',
 		element: <MainLayout />,

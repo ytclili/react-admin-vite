@@ -4,7 +4,7 @@ import './index.css'
 import 'antd/dist/reset.css'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './router/routes.tsx'
-import { ConfigProvider, theme } from 'antd'
+import { ConfigProvider, theme, App } from 'antd'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -23,7 +23,10 @@ createRoot(document.getElementById('root')!).render(
         algorithm: theme.defaultAlgorithm,
       }}
     >
-      <RouterProvider router={router} />
+      {/* 2. 在这里用 App 组件包裹 RouterProvider */}
+      <App>
+        <RouterProvider router={router} />
+      </App>
     </ConfigProvider>
   </StrictMode>,
 )

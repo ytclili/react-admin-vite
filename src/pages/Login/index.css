@@ -1,0 +1,422 @@
+/* 登录页面样式 */
+.login-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #F5F8FA;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  overflow: hidden;
+}
+
+/* 背景装饰 */
+.background-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #00BD97 0%, #00E492 100%);
+  z-index: 1;
+}
+
+/* 主登录卡片 */
+.login-card {
+  position: relative;
+  z-index: 2;
+  background: #FFFFFF;
+  border: 1px solid #F0F0F0;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.10), 
+              0px 4px 6px -1px rgba(0, 0, 0, 0.10);
+  width: 400px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: calc(50% - 390px);
+}
+
+/* Logo区域 */
+.logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.logo-circle {
+  background: #00BD97;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.title {
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: center;
+  margin: 8px 0 2px 0;
+}
+
+.subtitle {
+  color: #666666;
+  line-height: 22px;
+  text-align: center;
+  margin: 0;
+}
+
+/* 表单区域 */
+.form-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-label {
+  color: rgba(0, 0, 0, 0.88);
+  line-height: 22px;
+  font-size: 14px;
+  margin: 0;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  padding: 8px 12px;
+  gap: 12px;
+}
+
+.input-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.user-icon {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="%2300BD97"><path d="M8 8c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.password-icon {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="%2300BD97"><path d="M12 1H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm-1 7H9v2H7V8H5V6h2V4h2v2h2v2z"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.input-field {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+.input-field::placeholder {
+  color: rgba(0, 0, 0, 0.25);
+}
+
+.password-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eye-icon {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.eye-close {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="%23000000"><path d="M8 3C4.5 3 1.5 5.5 0 8c1.5 2.5 4.5 5 8 5s6.5-2.5 8-5c-1.5-2.5-4.5-5-8-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/></svg>');
+}
+
+.eye-open {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="%23000000"><path d="M8 3C4.5 3 1.5 5.5 0 8c1.5 2.5 4.5 5 8 5s6.5-2.5 8-5c-1.5-2.5-4.5-5-8-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/><path d="M8 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>');
+}
+
+/* 验证成功提示 */
+.verification-success {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #F6FFED;
+  border: 1px solid #B7EB8F;
+  border-radius: 6px;
+  padding: 13px;
+}
+
+.success-icon {
+  width: 18px;
+  height: 18px;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" fill="%2352C41A"><path d="M9 1C4.58 1 1 4.58 1 9s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm-1.41 12.17L4.83 9l1.42-1.41L7.59 10.17 12.17 5.59 13.59 7l-6.17 6.17z"/></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.verification-success span {
+  color: #52C41A;
+  line-height: 22px;
+  font-size: 14px;
+}
+
+/* 滑动验证 */
+.slider-verify {
+  background: #FFFFFF;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.slider-verify .ant-slider {
+  margin: 4px 8px;
+}
+
+.slider-verify .ant-slider-track {
+  background-color: #00BD97;
+}
+
+.slider-verify .ant-slider-handle::after {
+  box-shadow: 0 0 0 2px rgba(0, 189, 151, 0.2);
+}
+
+.slider-tip {
+  margin-top: 6px;
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 12px;
+}
+
+.verify-switch {
+  margin-top: 8px;
+  background: none;
+  border: none;
+  color: #00BD97;
+  cursor: pointer;
+  padding: 0;
+}
+
+.verify-warning {
+  margin-top: 6px;
+  color: #FAAD14;
+  font-size: 12px;
+}
+
+.captcha-verify {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.captcha-image {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.captcha-input {
+  flex: 1;
+  height: 38px;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  padding: 0 10px;
+}
+
+.captcha-canvas {
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.captcha-refresh {
+  background: none;
+  border: none;
+  color: #00BD97;
+  cursor: pointer;
+}
+
+/* 记住账号选项 */
+.remember-section {
+  margin-top: 8px;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.checkbox-input {
+  display: none;
+}
+
+.checkbox-custom {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #D9D9D9;
+  border-radius: 4px;
+  background: #FFFFFF;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.checkbox-input:checked + .checkbox-custom {
+  background: #00BD97;
+  border-color: #00BD97;
+}
+
+.checkbox-input:checked + .checkbox-custom::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-label {
+  color: rgba(0, 0, 0, 0.88);
+  line-height: 22px;
+  font-size: 14px;
+}
+
+/* 登录按钮 */
+.login-button {
+  background: #00BD97;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  box-shadow: 0px 2px 0px 0px rgba(0, 228, 146, 0.11);
+  color: #FFFFFF;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 9.5px 0;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.login-button:hover {
+  background: #00A085;
+}
+
+.login-button:active {
+  background: #008F75;
+}
+
+/* 客服信息 */
+.customer-service {
+  color: #666666;
+  line-height: 20px;
+  text-align: center;
+  margin-top: 16.5px;
+  font-size: 14px;
+}
+
+/* 底部装饰 */
+.bottom-decoration {
+  width: 400px;
+  height: 200px;
+  background: linear-gradient(135deg, #00BD97 0%, #00E492 100%);
+  margin-top: 40px;
+  border-radius: 8px;
+  opacity: 0.1;
+}
+
+/* 页脚信息 */
+.footer {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  z-index: 3;
+}
+
+.browser-tip,
+.copyright,
+.icp {
+  color: #999999;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  margin: 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .login-card {
+    width: 90%;
+    max-width: 400px;
+    margin: 0 20px;
+  }
+  
+  .background-decoration {
+    height: 200px;
+  }
+  
+  .bottom-decoration {
+    width: 90%;
+    max-width: 400px;
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 18px;
+  }
+  
+  .input-wrapper {
+    padding: 6px 10px;
+  }
+}
