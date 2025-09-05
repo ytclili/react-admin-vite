@@ -30,7 +30,7 @@ const Login: React.FC = () => {
         }
         // const passwordHash = await hashSHA256(password.trim());
         try {
-            const res = await post<any>('/auth/manage-user/login', {
+            const res = await post<any>('/auth/manage-user-login', {
                 username: username.trim(),
                 password: password.trim(),
             });
